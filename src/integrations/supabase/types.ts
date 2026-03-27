@@ -14,7 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      claims: {
+        Row: {
+          claim_amount: number
+          claim_type: string
+          created_at: string
+          customer_name: string
+          id: string
+          remarks: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          claim_amount: number
+          claim_type: string
+          created_at?: string
+          customer_name: string
+          id?: string
+          remarks?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          claim_amount?: number
+          claim_type?: string
+          created_at?: string
+          customer_name?: string
+          id?: string
+          remarks?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
