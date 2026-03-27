@@ -1,7 +1,9 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { LayoutDashboard, FileText, LogOut, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import { useAuth } from "@/lib/auth";
+import { toast } from "sonner";
 
 const navItems = [
   { label: "Dashboard", icon: LayoutDashboard, path: "/" },
@@ -10,7 +12,15 @@ const navItems = [
 
 export function AppSidebar() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
+  const { signOut, role } = useAuth();
+
+  const handleLogout = async () => {
+    await signOut();
+    toast.success("Logged out successfully");
+    navigate("/login");
+  };
 
   return (
     <aside
@@ -25,9 +35,16 @@ export function AppSidebar() {
           <FileText className="w-4 h-4 text-primary-foreground" />
         </div>
         {!collapsed && (
-          <span className="font-semibold text-foreground text-lg font-['Space_Grotesk']">
-            ClaimFlow
-          </span>
+          <div>
+            <span className="font-semibold text-foreground text-lg font-['Space_Grotesk'] leading-none block">
+              ClaimFlow
+            </span>
+            {role && (
+              <span className="text-[10px] text-muted-foreground uppercase tracking-wider">
+                {role === "admin" ? "Administrator" : "Claims Officer"}
+              </span>
+            )}
+          </div>
         )}
       </div>
 
@@ -68,7 +85,10 @@ export function AppSidebar() {
             </>
           )}
         </button>
-        <button className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-muted-foreground hover:bg-destructive/10 hover:text-destructive transition-colors w-full">
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-muted-foreground hover:bg-destructive/10 hover:text-destructive transition-colors w-full"
+        >
           <LogOut className="w-5 h-5 shrink-0" />
           {!collapsed && <span>Logout</span>}
         </button>
