@@ -1,7 +1,7 @@
 # ClaimFlow
 
 ## 🚀 Live Demo
-https://claimflowhub.vercel.app/login
+https://claimflowhub.lovable.app/login
 
 ## ⚙️ Run Locally
 npm install  
