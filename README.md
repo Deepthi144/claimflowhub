@@ -1,3 +1,8 @@
-# Welcome to your Lovable project
+# ClaimFlow
 
-TODO: Document your project here
+## 🚀 Live Demo
+https://claimflowhub.vercel.app/login
+
+## ⚙️ Run Locally
+npm install  
+npm run dev
